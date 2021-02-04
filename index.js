@@ -23,7 +23,7 @@ app.use(passport.session());
 
 auth(app);
 
-mongoose.connect(keys.MONGO_URI);
+mongoose.connect(keys.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
 
 app.get("/", (req, res) => {
     res.status(200);
