@@ -5,17 +5,20 @@ const keys = require("../config/key");
 
 const User = mongoose.model("users");
 
+
+// serializeUser is converting userid into cookie
 passport.serializeUser((user, done) => {
     done(null, user.id);
-})
+}) 
 
+
+// deserializeUser is converting back from cookie to User ID
 passport.deserializeUser((id, done) => {
     User.findById(id)
     .then( user => {
         done(null, user);
     })
-
-})
+});
 
 passport.use(new GoogleStrategy(
     {
@@ -33,7 +36,7 @@ passport.use(new GoogleStrategy(
         })
         .then(existingUser => {
             if(existingUser) {
-                console.log("user is already there----", existingUser);
+                console.log("user is already existing----", existingUser);
                 done(null, existingUser);
             } else {
                 new User({ 
@@ -42,14 +45,14 @@ passport.use(new GoogleStrategy(
                  })
                  .save()
                  .then( user => done(null, user))
-                //  .catch( err => {
-                //      console.log("error", err);
-                //      done(err, null);
-                //  })
+                 .catch( error => {
+                     console.log("issue with creating new user into mongoDB error", error);
+                     done(err, null);
+                 })
             }
         })
-        .catch(err => {
-            console.log("error to mongoDB-------------", err)
+        .catch(error => {
+            console.log("issue with finding a user in mongoDB-------------", error)
         })
     }
 ));

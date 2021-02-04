@@ -30,10 +30,10 @@ mongoose.connect(keys.MONGO_URI, {
     useCreateIndex: true 
 })
 .then( acc => {
-    console.log("mongoDB connected----", acc)
+    console.log("mongoDB successfully connected----")
 })
-.catch( err => {
-    console.log("issue with connecting MongoDB----", err)
+.catch( error => {
+    console.log("MongoDB connectivity error----", error)
 })
 
 app.get("/", (req, res) => {
@@ -44,6 +44,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log("server starts at PORT:-", PORT)
+    console.log("server started at PORT:-", PORT)
 })
 
