@@ -22,7 +22,7 @@ passport.use(new GoogleStrategy(
         clientID: keys.GOOGLE_CLIENT_ID,
         clientSecret: keys.GOOGLE_CLIENT_SECRET,
         callbackURL: "/auth/google/callback",
-        passReqToCallback: true
+        proxy: true
     },
     (request, accessToken, refreshToken, profile, done) => {
         console.log("request, accessToken, refreshToken, profile, done-----", profile, accessToken);
