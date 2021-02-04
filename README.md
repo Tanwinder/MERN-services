@@ -37,5 +37,42 @@ models
 
 # Heroku deployment
 
+# Google auth creation for prod
+1. create new project
+2. click on create button
+3. make sure you are in right project check in top of the left panel
+4. left panel select :- OAuth consent screen -> external -> create -> save and continue done
+5. Credentials -> create credentials -> Oauth client ID -> web application
+6. Add URI -> check your project url on heroku eg:- https://mern-services.herokuapp.com/
+7. Authorized redirect URI's eg:- https://mern-services.herokuapp.com/auth/google/callback
+8. click on create and copy client iD and your client secret
+
+# mongoDB poject creation
+1. login first with google
+2. new project
+3. build cluster  - steps
+   1. free 
+   2. AWS 
+   3. north virginia
+   4. Leave all of the Free Tier options selected and scroll down to the bottom. Click the "Create a Cluster" button // it will take few mins to
+
+
+7. After the Cluster has been created, you will be taken back to the Clusters page of the database. Click the "Connect" button
+
+8. Click the "Add a Different IP Address button:
+
+9. Enter 0.0.0.0/0 into the IP Address field and click the "Add IP Address" button. This part is extremely important as our Heroku server will not be able to connect to our database unless we whitelist all IP addresses.
+
+In a real production app, you would typically have a static IP and a Fully Qualified Domain Name. In this case, we would whitelist only the static IP. You can read up on this more here:
+
+https://help.heroku.com/JS13Y78I/i-need-to-whitelist-heroku-dynos-what-are-ip-address-ranges-in-use-at-heroku
+
+
+10. Next, enter a new username and then click the "Autogenerate Secure Password" button. Then click "Create MongoDB User"
+
+
+
+
+
 
 

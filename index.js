@@ -14,7 +14,7 @@ app.use(
     cookieSession({
         name: "userCookie",
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        keys: [keys.cookieKey]
+        keys: [keys.COOKIE_KEY]
     })
 )
 
@@ -23,7 +23,7 @@ app.use(passport.session());
 
 auth(app);
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.MONGO_URI);
 
 app.get("/", (req, res) => {
     res.status(200);
