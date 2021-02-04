@@ -5,7 +5,13 @@ module.exports = (app) => {
         scope:[ 'profile', 'email' ] 
     }))
     
-    app.get("/auth/google/callback", passport.authenticate("google"));
+    app.get("/auth/google/callback", 
+        passport.authenticate("google"),
+        (req, res) => {
+            // res.send("successfully logged in")
+            res.redirect("/")
+        }
+    );
 
     app.get("/api/logout", (req, res) => {
         req.logout();
@@ -13,13 +19,17 @@ module.exports = (app) => {
     })
 
     app.get("/api/currentuser", (req, res) => {
-        console.log("req-----------------", req.user)
         if(req.user){
             res.send(req.user);
         } else {
             res.send("Please logout first");
         }
         
+    })
+
+    app.get("/", (req, res) => {
+        res.status(200);
+        res.send({hi: "world"})
     })
 
 }

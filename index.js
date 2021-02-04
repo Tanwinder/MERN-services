@@ -36,11 +36,6 @@ mongoose.connect(keys.MONGO_URI, {
     console.log("MongoDB connectivity error----", error)
 })
 
-app.get("/", (req, res) => {
-    res.status(200);
-    res.send({hi: "world"})
-})
-
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

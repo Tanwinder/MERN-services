@@ -13,11 +13,9 @@ passport.serializeUser((user, done) => {
 
 
 // deserializeUser is converting back from cookie to User ID
-passport.deserializeUser((id, done) => {
-    User.findById(id)
-    .then( user => {
-        done(null, user);
-    })
+passport.deserializeUser(async (id, done) => {
+    const user = await User.findById(id);
+    done(null, user);
 });
 
 passport.use(new GoogleStrategy(
@@ -28,31 +26,27 @@ passport.use(new GoogleStrategy(
         passReqToCallback: true,
         proxy: true
     },
-    (request, accessToken, refreshToken, profile, done) => {
+    async (request, accessToken, refreshToken, profile, done) => {
         console.log("profile-----------", profile);
         console.log("accessToken-----", accessToken);
-        User.findOne({
+        const existingUser = await User.findOne({
             googleId: profile.id
-        })
-        .then(existingUser => {
-            if(existingUser) {
-                console.log("user is already existing----", existingUser);
-                done(null, existingUser);
-            } else {
-                new User({ 
+        });
+        if(existingUser) {
+            console.log("user is already existing----", existingUser);
+            done(null, existingUser);
+        } else {
+            try {
+                const newUser = await new User({ 
                     googleId: profile.id,
                     displayName: profile.displayName
                  })
-                 .save()
-                 .then( user => done(null, user))
-                 .catch( error => {
-                     console.log("issue with creating new user into mongoDB error", error);
-                     done(err, null);
-                 })
+                 .save();
+                done(null, newUser);
+            } catch (error) {
+                console.log("issue with creating new user into mongoDB error", error);
+                done(error, null);
             }
-        })
-        .catch(error => {
-            console.log("issue with finding a user in mongoDB-------------", error)
-        })
+        }
     }
 ));
