@@ -26,7 +26,8 @@ passport.use(new GoogleStrategy(
         proxy: true
     },
     (request, accessToken, refreshToken, profile, done) => {
-        console.log("request, accessToken, refreshToken, profile, done-----", profile, accessToken);
+        console.log("profile-----------", profile);
+        console.log("accessToken-----", accessToken);
         User.findOne({
             googleId: profile.id
         })
@@ -46,6 +47,9 @@ passport.use(new GoogleStrategy(
                 //      done(err, null);
                 //  })
             }
-        }) 
+        })
+        .catch(err => {
+            console.log("error to mongoDB-------------", err)
+        })
     }
 ));

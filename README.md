@@ -36,6 +36,8 @@ routes
 models
 
 # Heroku deployment
+1. download heroku cli
+2. heroku logs --tail --app <app name>  e.g heroku logs --tail --app mern-services
 
 # Google auth creation for prod
 1. create new project
