@@ -23,7 +23,18 @@ app.use(passport.session());
 
 auth(app);
 
-mongoose.connect(keys.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
+mongoose.connect(keys.MONGO_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useFindAndModify: false, 
+    useCreateIndex: true 
+})
+.then( acc => {
+    console.log("mongoDB connected----", acc)
+})
+.catch( err => {
+    console.log("issue with connecting MongoDB----", err)
+})
 
 app.get("/", (req, res) => {
     res.status(200);
