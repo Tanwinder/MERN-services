@@ -6,23 +6,27 @@ module.exports = (app) => {
     }))
     
     app.get("/auth/google/callback", 
-        passport.authenticate("google"),
+        passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
         (req, res) => {
+            console.log("req /auth/google/callback -----------")
             // res.send("successfully logged in")
-            res.redirect("/")
+            res.redirect("http://localhost:3000")
         }
     );
 
     app.get("/api/logout", (req, res) => {
         req.logout();
-        res.send("LoggedOut Successfully");
+        res.redirect("http://localhost:3000")
     })
 
     app.get("/api/currentuser", (req, res) => {
         if(req.user){
-            res.send(req.user);
+            // setTimeout(() => {
+                res.send(req.user);
+            // }, 3000)
+            
         } else {
-            res.send("Please logout first");
+            res.send(null);
         }
         
     })
