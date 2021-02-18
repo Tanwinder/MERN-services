@@ -12,6 +12,7 @@ module.exports = (app, appUrl) => {
             console.log("appUrl /auth/google/callback -----------", appUrl);
             console.log("res /auth/google/callback -----------", res);
             // res.send("successfully logged in")
+            res.append('Set-Cookie', 'divehours=fornightly')
             res.redirect(appUrl)
         }
     );

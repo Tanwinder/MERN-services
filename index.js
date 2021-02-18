@@ -26,6 +26,7 @@ app.use(
     cookieSession({
         name: "userCookie",
         maxAge: 30 * 60 * 1000,
+        domain: appUrl,
         // maxAge: 30 * 24 * 60 * 60 * 1000,
         keys: [keys.COOKIE_KEY]
     })
