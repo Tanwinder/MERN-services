@@ -9,6 +9,8 @@ module.exports = (app, appUrl) => {
         passport.authenticate("google", { failureRedirect: appUrl }),
         (req, res) => {
             console.log("req /auth/google/callback -----------", req.user);
+            console.log("appUrl /auth/google/callback -----------", appUrl);
+            console.log("res /auth/google/callback -----------", res);
             // res.send("successfully logged in")
             res.redirect(appUrl)
         }
@@ -20,7 +22,7 @@ module.exports = (app, appUrl) => {
     })
 
     app.get("/api/currentuser", (req, res) => {
-        console.log("req.user------", req.user);
+        console.log("req.user /api/currentuser------", req.user);
         if(req.user){
             // setTimeout(() => {
                 res.send(req.user);
