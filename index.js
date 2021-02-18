@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const cors = require('cors')
 const cookieSession = require("cookie-session");
 const bodyParser = require('body-parser')
 const passport = require("passport");
@@ -9,7 +10,16 @@ require("./models/users")
 require("./services/passport");
 
 const app = express();
+console.log("process.env.NODE_ENV----", process.env.NODE_ENV)
 
+const appUrl = process.env.NODE_ENV === 'production' ? 'https://mern-services-ui.herokuapp.com/' : 'http://localhost:3000';
+
+var corsOptions = {
+    credentials: true, 
+    origin: appUrl
+    // 'Access-Control-Allow-Origin': true
+};
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(
     cookieSession({
@@ -23,7 +33,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-require("./routes/authRoutes")(app);
+require("./routes/authRoutes")(app, appUrl);
 require("./routes/billingRoutes")(app);
 
 mongoose.connect(keys.MONGO_URI, { 
@@ -40,7 +50,6 @@ mongoose.connect(keys.MONGO_URI, {
 })
 
 const PORT = process.env.PORT || 5000;
-console.log("process.env.NODE_ENV----", process.env.NODE_ENV)
 
 app.listen(PORT, () => {
     console.log("server started at PORT:-", PORT)

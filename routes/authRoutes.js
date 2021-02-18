@@ -1,25 +1,26 @@
 const passport = require("passport");
 
-module.exports = (app) => {
+module.exports = (app, appUrl) => {
     app.get("/auth/google", passport.authenticate("google", { 
         scope:[ 'profile', 'email' ] 
     }))
     
     app.get("/auth/google/callback", 
-        passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
+        passport.authenticate("google", { failureRedirect: appUrl }),
         (req, res) => {
-            console.log("req /auth/google/callback -----------")
+            // console.log("req /auth/google/callback -----------")
             // res.send("successfully logged in")
-            res.redirect("http://localhost:3000")
+            res.redirect(appUrl)
         }
     );
 
     app.get("/api/logout", (req, res) => {
         req.logout();
-        res.redirect("http://localhost:3000")
+        res.redirect(appUrl)
     })
 
     app.get("/api/currentuser", (req, res) => {
+        console.log("req.user------", req.user);
         if(req.user){
             // setTimeout(() => {
                 res.send(req.user);
