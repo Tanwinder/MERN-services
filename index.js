@@ -12,8 +12,9 @@ require("./services/passport");
 const app = express();
 console.log("process.env.NODE_ENV----", process.env.NODE_ENV)
 
-const appUrl = process.env.NODE_ENV === 'production' ? 'https://mern-services-ui.herokuapp.com/' : 'http://localhost:3000';
+const appUrl = process.env.NODE_ENV === 'production' ? 'https://mern-services-ui.herokuapp.com' : 'http://localhost:3000';
 
+console.log("appUrl -------------------", appUrl);
 var corsOptions = {
     credentials: true, 
     origin: appUrl
