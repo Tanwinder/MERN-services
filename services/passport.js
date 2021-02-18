@@ -27,13 +27,13 @@ passport.use(new GoogleStrategy(
         proxy: true
     },
     async (request, accessToken, refreshToken, profile, done) => {
-        // console.log("profile-----------", profile);
-        // console.log("accessToken-----", accessToken);
+        console.log("profile-----------", profile);
+        console.log("accessToken-----", accessToken);
         const existingUser = await User.findOne({
             googleId: profile.id
         });
         if(existingUser) {
-            // console.log("user is already existing----", existingUser);
+            console.log("user is already existing----", existingUser);
             done(null, existingUser);
         } else {
             try {
