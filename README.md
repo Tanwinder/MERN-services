@@ -68,6 +68,16 @@ models
 
 
 
+Rought work:-
+1. divide into:-
+   controllers
+   models
+   routes
+
+
+
+
+
 
 
 
